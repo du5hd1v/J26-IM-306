@@ -1,67 +1,51 @@
-# J26-IM-306
+# Kadhai - Component 1 vertical slice
 
-# Kadhai (கதை) — Interactive Storytelling and Cultural Identity among Sri Lankan Tamils
+An accessible, bilingual React prototype for the interactive narrative architecture described in the KADHAI Component 1 implementation field guide (J26-IM-306).
 
-**Project ID:** J26-IM-306  
-**Degree Program:** B.Sc. (Hons) Information Technology, Specialization in Interactive Multi Media  
-**Supervisor:** Ishara Gamage  
+This is a **local demonstration**, not a participant-research system. All narrative and checkpoint copy is explicitly placeholder content. The app does not collect or submit participant data.
 
----
+## Included
 
-## Overview
+- Tamil/English interface toggle
+- Welcome and consent-placeholder screens
+- Path A: three fixed, sequential placeholder scenes
+- Path B: a hotspot, two choices, two branches, and a shared rejoin scene
+- Pure reducer-based narrative engine with explicit validation errors
+- Keyboard-friendly controls and responsive layouts
+- Mock introduction checkpoint
+- Engine tests for transitions, invalid IDs, hotspot deduplication, and branch rejoining
 
-**Kadhai** is an empirical research initiative and web-based interactive digital storybook platform dedicated to preserving and retelling Jaffna's historical and Hindu cultural heritage. While traditional archives and monuments preserve historical records, younger generations and diaspora communities often lack access to engaging, contemporary digital formats. 
+## Run locally
 
-Kadhai addresses this gap by investigating how digital presentation modalities (interactive vs. linear, comic-panel vs. high-motion, traditional iconographic vs. contemporary superhero-style, and audio-narration layers) influence **Perceived Cultural Identity**, **Perceived Cultural Relevance**, **Narrative Immersion**, and **Historical Content Recall** between local residents and the Tamil diaspora.
+```bash
+npm install
+npm run dev
+```
 
----
+Open the local URL printed by Vite.
 
-## Experimental Architecture: Dual Storytelling Paths
+## Test and build
 
-Participants are randomly assigned to one of two parallel storytelling paths traversing four distinct segments:
+```bash
+npm test
+npm run build
+```
 
-| Segment / Focus | Component Lead | Path A (Traditional Baseline) | Path B (Contemporary Treatment) |
-|---|---|---|---|
-| **C1: Interactive Narrative** | W.A.D.D. Rathnayake | Simple, linear fixed-sequence intro | Gamified, interactive intro with branching choices |
-| **C2: Character Visual Style** | Jathurshan P. | Traditional iconographic King Sangiliyan | Contemporary superhero-style King Sangiliyan |
-| **C3: Animation Motion Intensity** | Thiveesan K. | Low-motion, comic-panel style | Dynamic, high-motion animation |
-| **C4: Audio, Narration & Feedback** | Sudusinghe J.J. | Visual-only (no audio/narration) | Bilingual (Tamil/English) narration + audio + feedback |
+## Demo checklist
 
----
+1. Switch between English and Tamil on the welcome screen.
+2. Continue through the local demo consent notice.
+3. Select Path A and confirm there are no hotspots or choices.
+4. Complete all three Path A scenes and reach the checkpoint.
+5. Return home, select Path B, open the hotspot, and try each choice in separate runs.
+6. Confirm both Path B choices rejoin the final scene.
+7. Select a demo rating and complete the journey.
 
-## System Architecture
+## Outstanding work
 
-```text
-               +-------------------------------------------------------+
-               |         Researched Jaffna Historical & Hindu          |
-               |                     Narrative Content                 |
-               +-------------------------------------------------------+
-                                           |
-                                           v
-+-------------------------------------------------------------------------------------+
-|                              Kadhai Web Client Layer                                |
-|  +--------------------+  +--------------------+  +---------------+  +------------+  |
-|  | C1: Interaction    |  | C2: Character      |  | C3: Animation |  | C4: Audio  |  |
-|  | Engine & Branching |  | Visual Styles      |  | Motion Engine |  | & Narration|  |
-|  +--------------------+  +--------------------+  +---------------+  +------------+  |
-+-------------------------------------------------------------------------------------+
-                                           |
-                 +-------------------------+-------------------------+
-                 |                                                   |
-                 v                                                   v
-     [ Path A: Traditional ]                             [ Path B: Contemporary ]
-   - Linear Storyline                                  - Gamified Branching Choices
-   - Iconographic Character Art                        - Superhero Aesthetic Character Art
-   - Low-Motion Comic Panels                           - High-Motion Dynamic Animation
-   - Visual Only                                       - Bilingual Narration & Audio Feedback
-                 |                                                   |
-                 +-------------------------+-------------------------+
-                                           |
-                                           v
-+-------------------------------------------------------------------------------------+
-|                      Shared Evaluation & Measurement Engine                         |
-|  - Pre-Survey (MEIM-R / CHAS)                                                        |
-|  - Per-Segment Checkpoints (Micro-surveys)                                          |
-|  - Post-Survey (Recall Quiz + Identity / Engagement Analysis)                        |
-|  - Anonymized Data Collector (Factorial ANOVA / Jamovi / SPSS)                       |
-+-------------------------------------------------------------------------------------+
+- Replace all placeholder narrative with culturally reviewed copy and approved translations.
+- Add a formal scene-graph validator and split definitions by condition.
+- Integrate reviewed Component 2-4 image, motion, and audio manifests with fallbacks.
+- Add approved pre/post instruments and four segment checkpoints only after supervisor review.
+- Design and review a protected research API after ethics approval; do not use browser storage as the study database.
+- Complete accessibility, browser/device, performance, privacy, and end-to-end pilot testing.
