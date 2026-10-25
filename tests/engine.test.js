@@ -17,6 +17,7 @@ describe('narrative engine', () => {
 
   it.each([['follow_walls', 'b_walls'], ['seek_stories', 'b_stories']])('rejoins Path B branch %s', (choice, branch) => {
     let state = reduce(initialNarrativeState, { type: 'START', path: 'B' })
+    state = reduce(state, { type: 'OPEN_HOTSPOT', id: 'gateway_symbol' })
     state = reduce(state, { type: 'SELECT_CHOICE', id: choice })
     expect(state.currentSceneId).toBe(branch)
     state = reduce(state, { type: 'NEXT' })
@@ -28,6 +29,30 @@ describe('narrative engine', () => {
     state = reduce(state, { type: 'OPEN_HOTSPOT', id: 'gateway_symbol' })
     state = reduce(state, { type: 'OPEN_HOTSPOT', id: 'gateway_symbol' })
     expect(state.visitedHotspots).toEqual(['gateway_symbol'])
+    expect(state.score).toBe(25)
+  })
+
+  it('requires discovery and awards each gamified action only once', () => {
+    let state = reduce(initialNarrativeState, { type: 'START', path: 'B' })
+    state = reduce(state, { type: 'SELECT_CHOICE', id: 'follow_walls' })
+    expect(state.error).toMatch(/Discover/)
+    expect(state.currentSceneId).toBe('b_arrival')
+
+    state = reduce(state, { type: 'OPEN_HOTSPOT', id: 'gateway_symbol' })
+    state = reduce(state, { type: 'OPEN_HOTSPOT', id: 'gateway_symbol' })
+    state = reduce(state, { type: 'SELECT_CHOICE', id: 'follow_walls' })
+    state = reduce(state, { type: 'NEXT' })
+    state = reduce(state, { type: 'COMPLETE' })
+    expect(state.score).toBe(100)
+    expect(state.complete).toBe(true)
+  })
+
+  it('keeps the traditional path free of game rewards', () => {
+    let state = reduce(initialNarrativeState, { type: 'START', path: 'A' })
+    state = reduce(state, { type: 'NEXT' })
+    state = reduce(state, { type: 'NEXT' })
+    state = reduce(state, { type: 'COMPLETE' })
+    expect(state.score).toBe(0)
   })
 
   it('returns explicit errors for invalid identifiers', () => {
